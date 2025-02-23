@@ -9,6 +9,7 @@ const Client = require("../model/client.model");
 // Get all invoices
 router.get("/dashboard/:accountId", async (request, response, next) => {
   try {
+
     const accountId = request.params.accountId;
     const account = await Account.findById(accountId)
       .populate("clients")

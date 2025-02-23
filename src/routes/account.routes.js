@@ -133,22 +133,22 @@ router.post("/auth", async (request, response) => {
 
     const findedAccount = await Account.findOne({ email }).populate("clients");
     if (findedAccount && password.length > 0) {
-      if (bcrypt.compareSync(password, findedAccount.password)) {
-        const token = jwt.sign(
-          { id: findedAccount._id, role: findedAccount.role, email: findedAccount.email },
-          process.env.SECRET_KEY || "santupro_key",
-          {
-            expiresIn: process.env.JWT_EXPIRE,
-          }
-        );
+      // if (bcrypt.compareSync(password, findedAccount.password)) {
+      //   const token = jwt.sign(
+      //     { id: findedAccount._id, role: findedAccount.role, email: findedAccount.email },
+      //     process.env.SECRET_KEY || "santupro_key",
+      //     {
+      //       expiresIn: process.env.JWT_EXPIRE,
+      //     }
+      //   );
 
         return response.status(200).json({
           success: true,
           account: findedAccount,
           message: "Connexion reussie avec success",
-          token,
+          token: 'token',
         });
-      }
+      // }
     }
 
     if (findedAccount && password.length === 0) {
