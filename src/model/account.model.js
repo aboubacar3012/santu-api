@@ -6,20 +6,20 @@ const accountSchema = new mongoose.Schema({
     required: false,
     default: "",
   },
-  firstName: {
-    type: String,
-    required: false,
-    default: "",
-  },
-  lastName: {
-    type: String,
-    required: false,
-    default: "",
-  },
+  // firstName: {
+  //   type: String,
+  //   required: false,
+  //   default: "",
+  // },
+  // lastName: {
+  //   type: String,
+  //   required: false,
+  //   default: "",
+  // },
   role: {
     type: String,
-    enum: ["ADMIN", "PARTNER", "ACCOUNT"],
-    default: "ACCOUNT",
+    enum: ["ADMIN", "PARTNER"],
+    default: "PARTNER",
     required: true,
   },
   logo: {

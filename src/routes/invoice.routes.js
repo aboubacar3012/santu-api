@@ -19,6 +19,8 @@ router.get("/dashboard/:accountId", async (request, response, next) => {
           "path": "invoices"
         }
       });
+    
+      console.log({account})
 
     if (!account) return response.status(200).json({ success: false, message: "Compte non trouvé" });
     // @ts-ignore
@@ -72,13 +74,14 @@ router.post("/create", async (request, response, next) => {
 
     const invoice = new Invoice({
       ...request.body,
+      account: accountId,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
 
 
-    const client = await Client.findById(clientId).populate("invoices");
+    const client = await Client.findById(clientId)
     if (!client) {
       return response.status(200).json({
         success: false,
@@ -92,13 +95,13 @@ router.post("/create", async (request, response, next) => {
     // utilise promise all
     await Promise.all([invoice.save(), client.save()]).then(async () => {
       const account = await Account.findById(accountId)
-        .populate("clients")
-        .populate({
-          "path": "clients",
-          "populate": {
-            "path": "invoices"
-          }
-        });
+        // .populate("clients")
+        // .populate({
+        //   "path": "clients",
+        //   "populate": {
+        //     "path": "invoices"
+        //   }
+        // });
       return response.status(200).json({ success: true, account });
     });
   } catch (e) {

@@ -8,17 +8,16 @@ const Account = require("../model/account.model");
 // Get all clients
 router.get("/", async (request, response) => {
   try {
-    const clients = await Client.find()
-      .populate("accounts")
-      // sort by updatedAt
+    const { accountId } = request.query;
+    const query = accountId ? { account: accountId } : {};
+    const clients = await Client.find(query)
       .sort({ createdAt: -1 })
       .lean();
     response.json({
       success: true,
       clients,
     });
-  }
-  catch (e) {
+  } catch (e) {
     return response.status(200).json({ success: false, error: e.message });
   }
 });
@@ -75,6 +74,7 @@ router.post("/create", async (request, response, next) => {
     
     const client = new Client({
       ...request.body,
+      account: accountId,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

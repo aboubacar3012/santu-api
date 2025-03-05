@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const clientSchema = new mongoose.Schema({
-  type:{
+  type: {
     type: String,
     required: true,
-    enum: ["PARTICULAR", "COMPANY"],
+    enum: ["PARTICULAR", "PROFESSIONAL"],
   },
   company: {
     type: String,
@@ -48,8 +48,14 @@ const clientSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "invoices",
+      default: [],
     },
   ],
+  account: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "accounts",
+    required: true,
+  },
   createdAt: {
     default: Date.now,
     type: Date,

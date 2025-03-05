@@ -49,7 +49,7 @@ router.get("/", async (request, response) => {
 });
 
 // get account by ID
-router.get("/:id", middleware.isAuthenticated, (request, response) => {
+router.get("/:id", (request, response) => {
   try {
     const accountId = request.params.id;
     // verifier si l'id est valid
@@ -286,7 +286,7 @@ router.put("/updatepassword/:id", (request, response) => {
 // Reset password
 router.post(
   "/resetpassword",
-  middleware.isAuthenticated,
+  // middleware.isAuthenticated,
   (request, response) => {
     try {
       const { email } = request.body;

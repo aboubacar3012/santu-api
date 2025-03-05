@@ -60,13 +60,13 @@ const invoiceSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    enum: ["DRAFT","SENT","PAID","CANCELLED"],
+    enum: ["DRAFT", "SENT", "PAID", "CANCELLED"],
     default: "DRAFT",
   },
   paymentCondition: {
     type: String,
     required: true,
-    enum: ["NOW", "15", "30", "45", "60", 'UPONRECEIPT'],
+    enum: ["NOW", "15", "30", "45", "60", "UPONRECEIPT"],
   },
   tva: {
     type: String,
@@ -80,6 +80,11 @@ const invoiceSchema = new mongoose.Schema({
   client: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "clients",
+    required: true,
+  },
+  account: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "accounts",
     required: true,
   },
   createdAt: {
