@@ -55,6 +55,19 @@ router.get("/:id", async (request, response, next) => {
   }
 });
 
+// Get invoices by client id
+router.get("/client/:clientId", async (request, response) => {
+  try {
+    const invoices = await Invoice.find({client: request.params.clientId});
+    if (!invoices || invoices.length === 0) {
+      return response.status(200).json({ success: false, message: "Aucune facture trouvée" });
+    }
+    return response.status(200).json({ success: true, invoices });
+  } catch (e) {
+    return response.status(200).json({ success: false, error: e.message });
+  }
+});
+
 
 // Create a new invoice
 router.post("/create", async (request, response, next) => {

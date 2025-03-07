@@ -57,7 +57,7 @@ router.post("/create", async (request, response, next) => {
         .json({ success: false, message: "Veuillez remplir tous les champs" });
     }
 
-    const accountId = request.body.accountId;
+    const accountId = request.body.account;
     // delete request.body.accountId;
     delete request.body.accountId;
   
