@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/app.js",
+      "dest": "app.js",
       "headers": {
         "Access-Control-Allow-Origin": "https://santu-frontend.vercel.app",
         "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
