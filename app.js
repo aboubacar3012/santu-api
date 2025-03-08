@@ -18,14 +18,37 @@ const app = express();
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
-      ? "https://santu-frontend.vercel.app"
+      ? ["https://santu-frontend.vercel.app", "https://santu-pro.vercel.app"]
       : "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
 };
 
+// Appliquer CORS comme premier middleware
 app.use(cors(corsOptions));
+
+// Ajouter un middleware pour vérifier et ajouter l'en-tête CORS si nécessaire
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    process.env.NODE_ENV === "production"
+      ? "https://santu-frontend.vercel.app"
+      : "*"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).send();
+  }
+  next();
+});
+
 app.use(logger("dev"));
 app.use(express.json({ limit: "10mb" }));
 
