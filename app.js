@@ -14,7 +14,18 @@ const invoicesRouter = require("./src/routes/invoice.routes");
 
 const app = express();
 
-app.use(cors());
+// Configuration CORS avec options spécifiques pour la production
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === "production"
+      ? "https://santu-frontend.vercel.app"
+      : "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json({ limit: "10mb" }));
 
@@ -27,7 +38,6 @@ app.use(middleware.requestLogger);
 app.use("/api/accounts", accountsRouter);
 app.use("/api/clients", clientsRouter);
 app.use("/api/invoices", invoicesRouter);
-
 
 app.use(middleware.unknownEndpoint);
 
