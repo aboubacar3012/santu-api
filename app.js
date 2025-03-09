@@ -18,7 +18,7 @@ const app = express();
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
-      ? ["https://santu-frontend.vercel.app", "https://santu-pro.vercel.app"]
+      ? ["https://santou-frontend.vercel.app", "https://santou-pro.vercel.app"]
       : "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,

@@ -25,8 +25,8 @@ SantuPro API est un service backend pour la gestion des comptes, des clients et 
 1. Clonez le dépôt :
 
 ```bash
-git clone https://github.com/aboubacar3012/santu-api.git
-cd santu-api
+git clone https://github.com/aboubacar3012/santou-api.git
+cd santou-api
 ```
 
 2. Installez les dépendances :

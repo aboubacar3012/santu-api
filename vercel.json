@@ -19,7 +19,7 @@
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://santu-frontend.vercel.app"
+          "value": "https://santou-frontend.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
