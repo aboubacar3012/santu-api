@@ -2,7 +2,7 @@
 
 ## Description du projet
 
-SantuPro API est un service backend pour la gestion des comptes, des clients et des factures. Il fournit un ensemble de points de terminaison API RESTful pour effectuer des opérations CRUD sur ces entités. Le projet est construit en utilisant Node.js et Express, et utilise MongoDB comme base de données.
+SantouPro API est un service backend pour la gestion des comptes, des clients et des factures. Il fournit un ensemble de points de terminaison API RESTful pour effectuer des opérations CRUD sur ces entités. Le projet est construit en utilisant Node.js et Express, et utilise MongoDB comme base de données.
 
 ## Fonctionnalités
 
