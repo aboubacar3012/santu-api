@@ -42,8 +42,7 @@ router.get("/", async (request, response) => {
       success: true,
       accounts,
     });
-  }
-  catch (e) {
+  } catch (e) {
     return response.status(200).json({ success: false, error: e.message });
   }
 });
@@ -71,7 +70,6 @@ router.get("/:id", (request, response) => {
             .json({ success: false, message: "Utilisateur non trouvé" });
         }
       });
-
   } catch (e) {
     return response.status(200).json({ success: false, error: e.message });
   }
@@ -115,7 +113,6 @@ router.get("/:id", (request, response) => {
 //       response.json({ success: true, account });
 //     }
 
-
 //   } catch (e) {
 //     return response.status(200).json({ success: false, error: e.message });
 //   }
@@ -142,12 +139,12 @@ router.post("/auth", async (request, response) => {
       //     }
       //   );
 
-        return response.status(200).json({
-          success: true,
-          account: findedAccount,
-          message: "Connexion reussie avec success",
-          token: 'token',
-        });
+      return response.status(200).json({
+        success: true,
+        account: findedAccount,
+        message: "Connexion reussie avec success",
+        token: "token",
+      });
       // }
     }
 
@@ -159,7 +156,6 @@ router.post("/auth", async (request, response) => {
         account: findedAccount,
       });
     }
-
 
     // generate pasword of 8 characters, 1 uppercase, 1 lowercase, 1 number
     const generatedPassword = Math.random().toString(36).slice(-8); // generate random password of 8 characters
@@ -181,10 +177,11 @@ router.post("/auth", async (request, response) => {
 
     await account.save();
 
-    response.json({ created: true, success: true, account: { email, generatedPassword } });
-
-
-
+    response.json({
+      created: true,
+      success: true,
+      account: { email, generatedPassword },
+    });
   } catch (e) {
     return response.status(200).json({ success: false, error: e.message });
   }
@@ -206,7 +203,8 @@ router.post("/login", async (request, response) => {
     if (!account.isActive) {
       return response.json({
         success: false,
-        message: "Votre compte a été désactivé, veuillez contacter l'administrateur",
+        message:
+          "Votre compte a été désactivé, veuillez contacter l'administrateur",
       });
     }
 
@@ -333,20 +331,22 @@ router.put("/update/:id", (request, response) => {
         message: "l'ID de cet utilisateur n'existe pas",
       });
 
-    Account.findByIdAndUpdate(accountId, { ...request.body, isFirstLogin: false }, { new: true }).then(
-      (updated) => {
-        if (updated)
-          return response.status(200).json({
-            account: updated,
-            success: true,
-            message: "Mise a jour reussie avec success",
-          });
-        else
-          return response
-            .status(200)
-            .json({ success: false, message: "Utilisateur non trouvé" });
-      }
-    );
+    Account.findByIdAndUpdate(
+      accountId,
+      { ...request.body, isFirstLogin: false },
+      { new: true }
+    ).then((updated) => {
+      if (updated)
+        return response.status(200).json({
+          account: updated,
+          success: true,
+          message: "Mise a jour reussie avec success",
+        });
+      else
+        return response
+          .status(200)
+          .json({ success: false, message: "Utilisateur non trouvé" });
+    });
   } catch (e) {
     return response.status(200).json({ success: false, error: e.message });
   }

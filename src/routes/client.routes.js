@@ -10,9 +10,7 @@ router.get("/", async (request, response) => {
   try {
     const { accountId } = request.query;
     const query = accountId ? { account: accountId } : {};
-    const clients = await Client.find(query)
-      .sort({ createdAt: -1 })
-      .lean();
+    const clients = await Client.find(query).sort({ createdAt: -1 }).lean();
     response.json({
       success: true,
       clients,
@@ -33,12 +31,10 @@ router.get("/:id", async (request, response) => {
         message: "l'ID de cet client n'existe pas",
       });
 
-    const client = await Client.findById(clientId)
-      .lean(); // convert to json
+    const client = await Client.findById(clientId).lean(); // convert to json
     if (client) {
       return response.status(200).json({ success: true, client });
-    }
-    else {
+    } else {
       return response
         .status(200)
         .json({ success: false, message: "Utilisateur non trouvé" });
@@ -60,7 +56,7 @@ router.post("/create", async (request, response, next) => {
     const accountId = request.body.account;
     // delete request.body.accountId;
     delete request.body.accountId;
-  
+
     const findClient = await Client.findOne({ email: request.body.email });
 
     if (findClient) {
@@ -71,14 +67,13 @@ router.post("/create", async (request, response, next) => {
       });
     }
 
-    
     const client = new Client({
       ...request.body,
       account: accountId,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    
+
     const account = await Account.findById(accountId);
     if (!account) {
       return response.status(200).json({
@@ -95,7 +90,6 @@ router.post("/create", async (request, response, next) => {
     return response.status(200).json({ success: false, error: e.message });
   }
 });
-
 
 // Update client
 // middleware.isAuthenticated,
@@ -158,7 +152,6 @@ router.delete("/delete/:id", (request, response) => {
 
 // Invoices and Contracts
 
-
 // delete invoice or contract
 router.delete("/delete/:type/:clientId/:docId", async (request, response) => {
   try {
@@ -171,7 +164,6 @@ router.delete("/delete/:type/:clientId/:docId", async (request, response) => {
     //     success: false,
     //     message: "l'ID de cet client n'existe pas",
     //   });
-
     // const client = await Client.findById(clientId);
     // if (!client) {
     //   return response.status(200).json({
@@ -179,27 +171,22 @@ router.delete("/delete/:type/:clientId/:docId", async (request, response) => {
     //     message: "Client non trouvé",
     //   });
     // }
-
     // if(type !== "invoice" && type !== "contract") {
     //   return response.status(200).json({
     //     success: false,
     //     message: "Type de document invalide",
     //   });
     // }
-
     // if(type === "invoice") {
     //   client?.invoices.pull(docId); // cela supprime l'élément du tableau par son id
     // }else if(type === "contract") {
     //   client?.contracts.pull(docId);
     // }
-
     // const updatedClient = await client?.save();
-    
     // return response.status(200).json({ success: true, client:updatedClient });
-
   } catch (e) {
     return response.status(200).json({ success: false, error: e.message });
   }
-})
+});
 
 module.exports = router;
