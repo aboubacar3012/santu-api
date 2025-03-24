@@ -82,7 +82,7 @@ router.post("/create", async (request, response, next) => {
       });
     }
 
-    account.clients.push(client._id);
+    account.clients.push(client.id);
     // utilise promise all
     await Promise.all([client.save(), account.save()]);
     response.json({ success: true, client });

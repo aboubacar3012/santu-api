@@ -190,7 +190,7 @@ router.post("/create", async (request, response, next) => {
       });
     }
 
-    client.invoices.push(invoice._id);
+    client.invoices.push(invoice.id);
     invoice.client = clientId;
 
     // utilise promise all
